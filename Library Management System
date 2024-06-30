@@ -1,0 +1,133 @@
+//this project is made using structure and it is dynamic
+//project name= "Library Management System"
+//operations to be performed
+//1. add student(id, name ,books issued and name of book)
+//2. display students, read all students
+//3. search student, read a single student
+//4. update students, update a single student(on basis of id= change name, books issued and name of book----)
+//5. delete students, delete a single student(on basis of id= delete a single student,and replace null with it)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct library
+{
+    int id;
+    char stud_name[20];
+    int books_issued;
+    char name_of_book[20];
+};
+
+int main()
+{
+    struct library lib[10];
+    int i, n, choice, id, pos;
+    int count = 0; // to keep track of the number of employees
+
+    while(1)
+    {
+        printf("\n1. add students\n2. display student information\n3. search students\n4. update students\n5. delete students\n6. exit");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            {
+                printf("enter the number of students\n");
+                scanf("%d",&n);
+                for(i=count;i<n+count;i++)
+                {
+                    printf("enter the id,stud_name,books_issued,name_of_book\n");
+                    scanf("%d",&lib[i].id);
+                    scanf("%19s",&lib[i].stud_name); // to prevent buffer overflow
+                    scanf("%d",&lib[i].books_issued);
+                    scanf("%19s",&lib[i].name_of_book); // to prevent buffer overflow
+                }
+                count += n; // update the count
+                break;
+            }
+            case 2:
+            {
+                printf("the students are\n");
+                for(i=0;i<count;i++)
+                {
+                    if(lib[i].id != -1) 
+                    {
+                        printf("id=%d,stud_name=%s,books_issued=%d,name_of_book=%s\n",lib[i].id,lib[i].stud_name,lib[i].books_issued,lib[i].name_of_book);
+                    }
+                }
+                break;
+            }
+            case 3:
+            {
+                printf("enter the id of the student you want to search\n");
+                scanf("%d",&id);
+                for(i=0;i<count;i++)
+                {
+                    if(lib[i].id==id)
+                    {
+                        printf("id=%d,stud_name=%s,books_issued=%d\n",lib[i].id,lib[i].stud_name,lib[i].books_issued,lib[i].name_of_book);
+                        break;
+                    }
+                }
+                if(i == count)
+                {
+                    printf("student not found\n");
+                }
+                break;
+            }
+            case 4:
+            {
+                printf("enter the id of the student you want to update\n");
+                scanf("%d",&id);
+                for(i=0;i<count;i++)
+                {
+                    if(lib[i].id==id)
+                    {
+                        printf("enter the new name and books issued and name of book \n");
+                        scanf("%19s",&lib[i].stud_name); // to prevent buffer overflow
+                        scanf("%d",&lib[i].books_issued);
+                        scanf("%s",&lib[i].name_of_book);
+                        printf("student  updated\n");
+                        break;
+                    }
+                }
+                if(i == count)
+                {
+                    printf("student not found\n");
+                }
+                break;
+            }
+            case 5:
+            {
+                printf("enter the id of the student you want to delete\n");
+                scanf("%d",&id);
+                for(i=0;i<count;i++)
+                {
+                    if(lib[i].id==id)
+                    {
+                        lib[i].id=-1;
+                        lib[i].stud_name[0] = '\0'; // to set the name to empty string
+                        lib[i].books_issued = 0.0; // to set the salary to 0.0
+                        lib[i].name_of_book[0] = '\0';
+                        printf("student info deleted\n");
+                        break;
+                    }
+                }
+                if(i == count)
+                {
+                    printf("student not found\n");
+                }
+                break;
+            }
+            case 6:
+            {
+                return 0;
+            }
+            default:
+            {
+                printf("Invalid choice\n");
+            }
+        }
+    }
+    return 0;
+}
